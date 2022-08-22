@@ -1,0 +1,52 @@
+{
+  "name": "Waypoint Infinite Stats QoL Improvements",
+  "description": "",
+  "version": "1.0",
+  "manifest_version": 3,
+  "minimum_chrome_version": "93",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.halowaypoint.com/*"
+  ],
+  "background": {
+    "service_worker": "workers/worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.halowaypoint.com/halo-infinite/players/*"
+      ],
+      "js": [
+        "content-scripts/request-interceptor.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.halowaypoint.com/halo-infinite/players/*"
+      ],
+      "js": [
+        "content-scripts/dom-updater.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [{
+    "resources": ["content-scripts/request-interceptor.js"],
+    "matches": ["https://www.halowaypoint.com/*"]
+  }],
+
+  "externally_connectable": {
+    "ids": [
+      "jponedehppjjphihdjinjffojblllhfo"
+    ],
+    "matches": [
+      "https://www.halowaypoint.com/*"
+    ]
+
+  }
+}
