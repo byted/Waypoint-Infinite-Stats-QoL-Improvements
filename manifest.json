@@ -1,9 +1,15 @@
 {
   "name": "Waypoint Infinite Stats QoL Improvements",
-  "description": "",
+  "description": "Add quality-of-live improvements to Halo Infinite's stats on Halo Waypoint",
   "version": "1.0",
   "manifest_version": 3,
   "minimum_chrome_version": "93",
+  "default_locale": "en",
+  "developer": {
+    "name": "Stefan Selent",
+    "url": "https://github.com/byted"
+  },
+
   "permissions": [
     "activeTab",
     "scripting",
@@ -47,6 +53,5 @@
     "matches": [
       "https://www.halowaypoint.com/*"
     ]
-
   }
 }

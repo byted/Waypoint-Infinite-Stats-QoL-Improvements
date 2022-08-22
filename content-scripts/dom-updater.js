@@ -1,7 +1,4 @@
-/**
- * code in inject.js
- * added "web_accessible_resources": ["content-scripts/request-interceptor.js"] to manifest.json
- */
+// add request injector to hook into API responses
 const s = document.createElement('script');
 s.src = chrome.runtime.getURL('content-scripts/request-interceptor.js');
 s.onload = function () {
@@ -13,7 +10,7 @@ s.onload = function () {
 const playlistIdToNameMapping = {
     "f7f30787-f607-436b-bdec-44c65bc2ecef": "Solo 🎮",
     "edfef3ac-9cbe-4fa2-b949-8f29deafd483": "Open"
-} 
+}
 
 chrome.runtime.onMessage.addListener(
     (message, sender, sendResponse) => {
@@ -21,7 +18,7 @@ chrome.runtime.onMessage.addListener(
         if (message.type === "servicerecord.update") {
             updateAverageHighlights(message.data);
             updatePerDeathStats(message.data);
-        } else if(message.type === "skill.update") {
+        } else if (message.type === "skill.update") {
             const playlistId = /playlist\/([a-z0-9-]+)\/csrs/i.exec(message.url)[1];
             updateCsr(message.data, playlistId);
         }
@@ -43,10 +40,10 @@ const updatePerDeathStats = (data) => {
         emptyTh.innerText = '';
         const perDeathTh = headerRow.firstChild.cloneNode(true);
         perDeathTh.innerText = 'per Death';
-    
+
         headerRow.appendChild(emptyTh);
         headerRow.appendChild(perDeathTh);
-    
+
         accuracyTable.querySelectorAll('tbody > tr').forEach(row => {
             let perDeathCell = row.lastChild.cloneNode(true);
             perDeathCell.innerText = "";
@@ -55,7 +52,7 @@ const updatePerDeathStats = (data) => {
     }
     accuracyTable.querySelectorAll('tbody > tr').forEach(row => {
         let [label, allTime, perDeath] = row.childNodes;
-        if(label.innerText.toLowerCase() === 'accuracy') {
+        if (label.innerText.toLowerCase() === 'accuracy') {
             return;
         }
         allTime = parseFloat(row.childNodes[1].innerText.replace(/,/g, ''));
@@ -75,7 +72,7 @@ const updateAverageHighlights = (data) => {
     kpdContainer.childNodes[0].innerText = "K/D";
     kpdContainer.childNodes[1].querySelector('div[class^="number-stat-grouping_value"]').innerText = kpd.toFixed(2);
 
-    const kda = (data.CoreStats.Kills + (data.CoreStats.Assists/3)) / data.CoreStats.Deaths;
+    const kda = (data.CoreStats.Kills + (data.CoreStats.Assists / 3)) / data.CoreStats.Deaths;
     const kdaContainer = avgStatsContainer.lastChild.cloneNode(true);
     kdaContainer.childNodes[0].innerText = "KDA";
     kdaContainer.childNodes[1].querySelector('div[class^="number-stat-grouping_value"]').innerText = kda.toFixed(2);
@@ -87,7 +84,7 @@ const updateAverageHighlights = (data) => {
 const updateCsr = (data, playlistId) => {
     const ogSummaryContainer = document.querySelector('div[class^="summary-stats-strip_statStrip__"]');
     let csrSummaryContainer = document.getElementById("jponedehppjjphihdjinjffojblllhfo.csrSummary");
-    if(csrSummaryContainer === null) {
+    if (csrSummaryContainer === null) {
         csrSummaryContainer = ogSummaryContainer.cloneNode(true);
         csrSummaryContainer.setAttribute("id", "jponedehppjjphihdjinjffojblllhfo.csrSummary");
         while (csrSummaryContainer.firstChild) {
