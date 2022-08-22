@@ -30,6 +30,14 @@
         "https://www.halowaypoint.com/halo-infinite/players/*"
       ],
       "js": [
+        "content-scripts/enhance-stats.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.halowaypoint.com/halo-infinite/players/*"
+      ],
+      "js": [
         "content-scripts/dom-updater.js"
       ],
       "run_at": "document_end"
@@ -37,15 +45,16 @@
   ],
   "web_accessible_resources": [{
     "resources": ["content-scripts/request-interceptor.js"],
-    "matches": ["https://www.halowaypoint.com/*"]
+    "matches": ["<all_urls>"]
   }],
 
   "externally_connectable": {
     "ids": [
-      "jponedehppjjphihdjinjffojblllhfo"
+      "*"
     ],
     "matches": [
       "https://www.halowaypoint.com/*"
+
     ]
 
   }
