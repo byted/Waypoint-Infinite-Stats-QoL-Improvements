@@ -9,7 +9,8 @@ s.onload = function () {
 // Should be fetched from API
 const playlistIdToNameMapping = {
     "f7f30787-f607-436b-bdec-44c65bc2ecef": "Solo 🎮",
-    "edfef3ac-9cbe-4fa2-b949-8f29deafd483": "Open"
+    "edfef3ac-9cbe-4fa2-b949-8f29deafd483": "Open",
+    "fa5aa2a3-2428-4912-a023-e1eeea7b877c": "Doubles"
 }
 
 chrome.runtime.onMessage.addListener(
@@ -98,8 +99,10 @@ const updateCsr = (data, playlistId) => {
         data.Value[0].Result.Current.Value,
         data.Value[0].Result.SeasonMax.Value,
         data.Value[0].Result.AllTimeMax.Value
-    ];
+    ].map(csr => csr === -1 ? "N/A" : csr);
+    console.log("--------", csrs);
     const csrSummary = ogSummaryContainer.firstElementChild.cloneNode(true);
+    console.log(playlistId);
     csrSummary.querySelector('div[class*="value"]').innerHTML = `${csrs[0]}<span style="font-size: medium;"> / ${csrs[1]} / ${csrs[2]}</span>`;
     csrSummary.querySelector('div[class*="label"]').innerHTML = `CSR ${playlistIdToNameMapping[playlistId]}<br />(Current / Season / All-Time)`;
     csrSummaryContainer.appendChild(csrSummary);

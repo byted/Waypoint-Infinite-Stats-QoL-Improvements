@@ -4,11 +4,8 @@
   "version": "1.0",
   "manifest_version": 3,
   "minimum_chrome_version": "93",
-  "default_locale": "en",
-  "developer": {
-    "name": "Stefan Selent",
-    "url": "https://github.com/byted"
-  },
+  "author": "Stefan Selent",
+  "homepage_url": "https://github.com/byted",
 
   "permissions": [
     "activeTab",
